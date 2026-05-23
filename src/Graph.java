@@ -16,12 +16,12 @@ public class Graph {
         adjList.putIfAbsent(v.getId(), new ArrayList<>());
     }
 
-    // Обычное ребро
+
     public void addEdge(int from, int to) {
         addEdge(from, to, 1);
     }
 
-    // Взвешенное ребро (Бонус)
+
     public void addEdge(int from, int to, int weight) {
         Vertex src = vertices.get(from);
         Vertex dest = vertices.get(to);
@@ -49,7 +49,7 @@ public class Graph {
         }
     }
 
-    // --- ОБХОД BFS ---
+
     public void bfs(int start) {
         if (!vertices.containsKey(start)) return;
 
@@ -74,7 +74,7 @@ public class Graph {
         System.out.println();
     }
 
-    // --- ОБХОД DFS ---
+
     public void dfs(int start) {
         if (!vertices.containsKey(start)) return;
 
@@ -95,21 +95,21 @@ public class Graph {
         }
     }
 
-    // --- БОНУС: АЛГОРИТМ ДЕЙКСТРЫ (Без PriorityQueue) ---
+
     public void dijkstra(int start) {
         if (!vertices.containsKey(start)) return;
 
         Map<Integer, Integer> distances = new HashMap<>();
         Set<Integer> visited = new HashSet<>();
 
-        // Инициализация бесконечностью
+
         for (int id : vertices.keySet()) {
             distances.put(id, Integer.MAX_VALUE);
         }
         distances.put(start, 0);
 
         for (int i = 0; i < vertices.size(); i++) {
-            // Находим вершину с минимальным расстоянием среди не посещенных
+
             int u = -1;
             int minDistance = Integer.MAX_VALUE;
 
@@ -120,10 +120,10 @@ public class Graph {
                 }
             }
 
-            if (u == -1) break; // Все оставшиеся недостижимы
+            if (u == -1) break;
             visited.add(u);
 
-            // Релаксация ребер
+
             for (Edge edge : adjList.getOrDefault(u, Collections.emptyList())) {
                 int v = edge.getDestination().getId();
                 if (!visited.contains(v)) {
@@ -135,7 +135,7 @@ public class Graph {
             }
         }
 
-        // Вывод результатов
+
         System.out.println("Shortest paths from vertex " + start + ":");
         for (Map.Entry<Integer, Integer> entry : distances.entrySet()) {
             String distStr = entry.getValue() == Integer.MAX_VALUE ? "Unreachable" : String.valueOf(entry.getValue());
